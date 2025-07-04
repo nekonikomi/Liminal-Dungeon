@@ -2,46 +2,46 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Liminal Dungeon</title>
-  <script>
-    // Synchronously load the assets file and assign it to a global variable
-    try {
-      var xhr = new XMLHttpRequest();
-      // Use a relative path that will work on GitHub Pages
-      xhr.open('GET', 'assets.pyxres', false); // false for synchronous
-      xhr.send(null);
-      if (xhr.status === 200) {
-        window.assets = xhr.responseText;
-      } else {
-        console.error('Error loading assets.pyxres: ' + xhr.statusText);
-        document.body.innerHTML = '<p style="color: white;">Error loading game assets. Please check the browser console for details.</p>';
-      }
-    } catch (e) {
-      console.error('Exception while loading assets.pyxres: ' + e);
-      document.body.innerHTML = '<p style="color: white;">Error loading game assets. Please check the browser console for details.</p>';
+  <title>Liminal Dungeon - Home</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #282c34;
+      color: white;
+      margin: 0;
     }
-
-    // Fetch the original HTML content and write it to the document
-    // This will execute the scripts within the original HTML in the current context
-    fetch('index.html.bak')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to load game content: ' + response.statusText);
-        }
-        return response.text();
-      })
-      .then(html => {
-        document.open();
-        document.write(html);
-        document.close();
-      })
-      .catch(error => {
-        console.error(error);
-        document.body.innerHTML = '<p style="color: white;">Error loading game content. Please check the browser console for details.</p>';
-      });
-  </script>
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      margin-top: 30px;
+    }
+    .start-button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      background-color: #61dafb;
+      color: #282c34;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .start-button:hover {
+      background-color: #21a1f1;
+    }
+  </style>
 </head>
-<body style="background-color: black;">
-  <p style="color: white;">Loading game...</p>
+<body>
+  <h1>Welcome to Liminal Dungeon</h1>
+  <p>Explore the depths of the dungeon and uncover its secrets!</p>
+  <div class="button-container">
+    <button class="start-button" onclick="location.href='game.html'">Start Game</button>
+  </div>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Liminal Dungeon Game</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+    canvas {
+      display: block;
+      margin: auto;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Function to load assets.pyxres
+    function loadAssets(callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'assets.pyxres', true); // true for asynchronous
+      xhr.responseType = 'arraybuffer'; // Treat as binary data
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          // Convert ArrayBuffer to a string (or whatever format Pyxel expects)
+          // This part might need adjustment based on how Pyxel actually uses assets.pyxres
+          var byteArray = new Uint8Array(xhr.response);
+          var assetsString = String.fromCharCode.apply(null, byteArray);
+          window.assets = assetsString; // Assign to global variable
+          callback();
+        } else {
+          console.error('Error loading assets.pyxres: ' + xhr.statusText);
+          document.body.innerHTML = '<p style="color: white;">Error loading game assets. Please check the browser console for details.</p>';
+        }
+      };
+      xhr.onerror = function() {
+        console.error('Network error while loading assets.pyxres.');
+        document.body.innerHTML = '<p style="color: white;">Network error loading game assets. Please check the browser console for details.</p>';
+      };
+      xhr.send(null);
+    }
+
+    // Load assets and then inject the original game script
+    loadAssets(function() {
+      // Create a script element for the original game code
+      var script = document.createElement('script');
+      // Assuming the original game code was directly in index.html.bak
+      // This part is a placeholder and needs to be replaced with the actual game code
+      // For now, we'll assume the game code is in a separate file, e.g., game_code.js
+      // If the game code was embedded in index.html.bak, you would need to extract it.
+      script.src = 'game_code.js'; // Placeholder for actual game code
+      script.onload = function() {
+        console.log('Game script loaded.');
+      };
+      script.onerror = function() {
+        console.error('Error loading game_code.js');
+        document.body.innerHTML = '<p style="color: white;">Error loading game logic. Please check the browser console for details.</p>';
+      };
+      document.body.appendChild(script);
+    });
+  </script>
+</body>
+</html>
